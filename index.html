@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест-кейсы для функции поиска в NotePad</title>
+    <title>Тест-кейсы для функции поиска в NotePad - MEGA VERSION</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
         
         * {
             margin: 0;
@@ -17,7 +17,7 @@
             --primary: #7C3AED;
             --secondary: #06B6D4;
             --accent: #EC4899;
-            --dark: #0f0f23;
+            --dark: #0a0a1a;
             --light: #ffffff;
         }
         
@@ -30,8 +30,8 @@
             min-height: 100vh;
         }
         
-        /* Animated Background */
-        .animated-bg {
+        /* ========== MEGA ANIMATED BACKGROUND ========== */
+        .mega-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -39,85 +39,333 @@
             height: 100%;
             z-index: 1;
             overflow: hidden;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
         }
         
-        /* Floating Test Icons */
-        .test-icon {
+        /* Floating Geometric Shapes */
+        .geometric-shape {
             position: absolute;
-            font-size: 24px;
-            opacity: 0.1;
-            animation: float 20s infinite ease-in-out;
+            opacity: 0.15;
+            animation: floatShape 25s infinite ease-in-out;
+            filter: drop-shadow(0 0 20px currentColor);
+        }
+        
+        .hexagon {
+            width: 100px;
+            height: 57.74px;
+            background: var(--primary);
+            position: relative;
+            margin: 28.87px 0;
+        }
+        
+        .hexagon:before,
+        .hexagon:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+        }
+        
+        .hexagon:before {
+            bottom: 100%;
+            border-bottom: 28.87px solid var(--primary);
+        }
+        
+        .hexagon:after {
+            top: 100%;
+            width: 0;
+            border-top: 28.87px solid var(--primary);
+        }
+        
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 60px solid transparent;
+            border-right: 60px solid transparent;
+            border-bottom: 104px solid var(--secondary);
+        }
+        
+        .circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--accent);
+        }
+        
+        .square {
+            width: 90px;
+            height: 90px;
+            background: var(--primary);
+            transform: rotate(45deg);
+        }
+        
+        .pentagon {
+            width: 80px;
+            height: 80px;
+            background: var(--secondary);
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+        }
+        
+        /* Position geometric shapes */
+        .shape1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .shape2 { top: 60%; left: 15%; animation-delay: 3s; }
+        .shape3 { top: 30%; right: 10%; animation-delay: 6s; }
+        .shape4 { bottom: 20%; right: 20%; animation-delay: 9s; }
+        .shape5 { top: 80%; left: 40%; animation-delay: 12s; }
+        .shape6 { top: 15%; right: 35%; animation-delay: 15s; }
+        .shape7 { bottom: 40%; left: 25%; animation-delay: 18s; }
+        .shape8 { top: 50%; right: 45%; animation-delay: 21s; }
+        
+        @keyframes floatShape {
+            0%, 100% { 
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                opacity: 0.15;
+            }
+            25% { 
+                transform: translate(50px, -80px) rotate(90deg) scale(1.2);
+                opacity: 0.25;
+            }
+            50% { 
+                transform: translate(-30px, -150px) rotate(180deg) scale(0.8);
+                opacity: 0.3;
+            }
+            75% { 
+                transform: translate(80px, -100px) rotate(270deg) scale(1.1);
+                opacity: 0.2;
+            }
+        }
+        
+        /* Particle System */
+        .particle {
+            position: absolute;
+            background: var(--secondary);
+            border-radius: 50%;
+            animation: particleFloat 15s infinite linear;
+            opacity: 0.4;
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        /* People Working on Testing - SVG Illustrations */
+        .people-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .person {
+            position: absolute;
+            opacity: 0.12;
+            animation: personWork 20s infinite ease-in-out;
+        }
+        
+        .person1 { bottom: 5%; left: 10%; animation-delay: 0s; }
+        .person2 { top: 15%; right: 15%; animation-delay: 5s; }
+        .person3 { bottom: 30%; right: 5%; animation-delay: 10s; }
+        .person4 { top: 50%; left: 5%; animation-delay: 15s; }
+        
+        @keyframes personWork {
+            0%, 100% { 
+                transform: scale(1) translateY(0);
+                opacity: 0.12;
+            }
+            50% { 
+                transform: scale(1.1) translateY(-20px);
+                opacity: 0.2;
+            }
+        }
+        
+        /* Floating UI Elements */
+        .floating-ui {
+            position: absolute;
+            background: rgba(124, 58, 237, 0.1);
+            border: 2px solid rgba(124, 58, 237, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            backdrop-filter: blur(5px);
+            animation: floatUI 18s infinite ease-in-out;
+            font-size: 12px;
             color: var(--secondary);
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 8px 32px rgba(124, 58, 237, 0.2);
         }
         
-        .test-icon:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; font-size: 30px; }
-        .test-icon:nth-child(2) { left: 20%; top: 60%; animation-delay: 2s; font-size: 25px; color: var(--primary); }
-        .test-icon:nth-child(3) { left: 70%; top: 30%; animation-delay: 4s; font-size: 35px; color: var(--accent); }
-        .test-icon:nth-child(4) { left: 80%; top: 70%; animation-delay: 6s; font-size: 28px; }
-        .test-icon:nth-child(5) { left: 40%; top: 10%; animation-delay: 8s; font-size: 32px; color: var(--primary); }
-        .test-icon:nth-child(6) { left: 60%; top: 80%; animation-delay: 10s; font-size: 26px; color: var(--accent); }
+        .ui1 { top: 20%; left: 8%; animation-delay: 0s; }
+        .ui2 { top: 60%; right: 12%; animation-delay: 4s; }
+        .ui3 { bottom: 25%; left: 15%; animation-delay: 8s; }
+        .ui4 { top: 40%; right: 8%; animation-delay: 12s; }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.1; }
-            50% { transform: translateY(-100px) rotate(180deg); opacity: 0.3; }
+        @keyframes floatUI {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: translateY(-50px) rotate(5deg);
+                opacity: 0.9;
+            }
         }
         
-        /* Gradient Orbs */
+        /* Gradient Orbs - Enhanced */
         .orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.3;
-            animation: pulse 8s infinite ease-in-out;
+            filter: blur(100px);
+            opacity: 0.25;
+            animation: megaPulse 12s infinite ease-in-out;
         }
         
         .orb1 {
-            width: 400px;
-            height: 400px;
-            background: var(--primary);
-            top: -100px;
-            left: -100px;
-            animation-delay: 0s;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary), transparent);
+            top: -200px;
+            left: -200px;
         }
         
         .orb2 {
-            width: 500px;
-            height: 500px;
-            background: var(--secondary);
-            bottom: -150px;
-            right: -150px;
-            animation-delay: 2s;
-        }
-        
-        .orb3 {
-            width: 350px;
-            height: 350px;
-            background: var(--accent);
-            top: 50%;
-            left: 50%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, var(--secondary), transparent);
+            bottom: -250px;
+            right: -250px;
             animation-delay: 4s;
         }
         
-        @keyframes pulse {
-            0%, 100% { transform: scale(1) translate(0, 0); }
-            50% { transform: scale(1.2) translate(50px, 50px); }
+        .orb3 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent), transparent);
+            top: 40%;
+            left: 40%;
+            animation-delay: 8s;
         }
         
-        /* Code Matrix Effect */
-        .matrix-line {
+        @keyframes megaPulse {
+            0%, 100% { 
+                transform: scale(1) translate(0, 0);
+                opacity: 0.25;
+            }
+            33% { 
+                transform: scale(1.3) translate(100px, 50px);
+                opacity: 0.35;
+            }
+            66% { 
+                transform: scale(0.9) translate(-80px, 80px);
+                opacity: 0.3;
+            }
+        }
+        
+        /* Code Rain Effect */
+        .code-rain {
             position: absolute;
             color: var(--secondary);
             font-family: 'Courier New', monospace;
             font-size: 14px;
             opacity: 0;
-            animation: matrixFall 10s linear infinite;
+            animation: codeRain 12s linear infinite;
+            text-shadow: 0 0 5px var(--secondary);
         }
         
-        @keyframes matrixFall {
-            0% { opacity: 0; transform: translateY(-100%); }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
-            100% { opacity: 0; transform: translateY(100vh); }
+        @keyframes codeRain {
+            0% { 
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { 
+                opacity: 0;
+                transform: translateY(100vh);
+            }
+        }
+        
+        /* Network Lines */
+        .network-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0.2;
+            animation: networkPulse 8s infinite ease-in-out;
+        }
+        
+        @keyframes networkPulse {
+            0%, 100% { 
+                opacity: 0.2;
+                transform: scaleX(1);
+            }
+            50% { 
+                opacity: 0.5;
+                transform: scaleX(1.5);
+            }
+        }
+        
+        /* Testing Icons Animation */
+        .test-icon-big {
+            position: absolute;
+            font-size: 80px;
+            opacity: 0.08;
+            animation: iconFloat 30s infinite ease-in-out;
+            text-shadow: 0 0 30px currentColor;
+        }
+        
+        .icon1 { left: 5%; top: 10%; color: var(--secondary); animation-delay: 0s; }
+        .icon2 { right: 8%; top: 25%; color: var(--accent); animation-delay: 5s; }
+        .icon3 { left: 12%; bottom: 15%; color: var(--primary); animation-delay: 10s; }
+        .icon4 { right: 15%; bottom: 30%; color: var(--secondary); animation-delay: 15s; }
+        
+        @keyframes iconFloat {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.08;
+            }
+            25% { 
+                transform: translateY(-100px) rotate(90deg);
+                opacity: 0.15;
+            }
+            50% { 
+                transform: translateY(-150px) rotate(180deg);
+                opacity: 0.2;
+            }
+            75% { 
+                transform: translateY(-100px) rotate(270deg);
+                opacity: 0.15;
+            }
+        }
+        
+        /* Grid Pattern */
+        .grid-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(124, 58, 237, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124, 58, 237, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
         
         /* Content Container */
@@ -129,35 +377,69 @@
             padding: 60px 30px;
         }
         
-        /* Header */
+        /* Header - Enhanced */
         .header {
             text-align: center;
             margin-bottom: 80px;
             animation: fadeInDown 1s ease;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.2), transparent);
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: headerPulse 4s infinite ease-in-out;
+            z-index: -1;
+        }
+        
+        @keyframes headerPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
         }
         
         .header h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent), var(--primary));
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 20px;
-            text-shadow: 0 0 40px rgba(124, 58, 237, 0.3);
-            animation: glow 3s ease-in-out infinite;
+            animation: gradientShift 6s ease infinite, textGlow 3s ease-in-out infinite;
+            letter-spacing: -1px;
         }
         
-        @keyframes glow {
-            0%, 100% { filter: drop-shadow(0 0 10px var(--primary)); }
-            50% { filter: drop-shadow(0 0 30px var(--accent)); }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes textGlow {
+            0%, 100% { 
+                filter: drop-shadow(0 0 10px rgba(124, 58, 237, 0.5));
+            }
+            50% { 
+                filter: drop-shadow(0 0 30px rgba(236, 72, 153, 0.8));
+            }
         }
         
         .header p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--secondary);
             font-weight: 300;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: fadeIn 2s ease;
         }
         
         /* Section Headers */
@@ -168,15 +450,15 @@
         }
         
         .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
+            font-size: 2.8rem;
+            font-weight: 800;
             color: var(--light);
             display: inline-block;
-            padding: 20px 40px;
+            padding: 25px 50px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(124, 58, 237, 0.4);
-            animation: slideIn 1s ease;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(124, 58, 237, 0.5), 0 0 100px rgba(236, 72, 153, 0.3);
+            animation: sectionPulse 3s ease infinite;
             position: relative;
             overflow: hidden;
         }
@@ -188,8 +470,26 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            animation: shine 3s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 4s infinite;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+            border-radius: 50%;
+            animation: ripple 3s infinite;
+        }
+        
+        @keyframes ripple {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
         }
         
         @keyframes shine {
@@ -197,33 +497,47 @@
             100% { left: 200%; }
         }
         
-        .section-header .emoji {
-            font-size: 3rem;
-            margin-right: 15px;
-            animation: bounce 2s infinite;
+        @keyframes sectionPulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 20px 60px rgba(124, 58, 237, 0.5), 0 0 100px rgba(236, 72, 153, 0.3);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 30px 80px rgba(124, 58, 237, 0.7), 0 0 150px rgba(236, 72, 153, 0.5);
+            }
         }
         
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .section-header .emoji {
+            font-size: 3.5rem;
+            margin-right: 15px;
+            animation: emojiDance 2s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes emojiDance {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(-10deg); }
+            50% { transform: translateY(-15px) rotate(0deg); }
+            75% { transform: translateY(-10px) rotate(10deg); }
         }
         
         /* Test Cases Grid */
         .test-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 30px;
+            gap: 35px;
             margin-bottom: 60px;
         }
         
-        /* Test Card */
+        /* Test Card - Enhanced */
         .test-card {
-            background: rgba(15, 15, 35, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(15, 15, 35, 0.85);
+            backdrop-filter: blur(15px);
             border: 2px solid transparent;
-            border-radius: 20px;
-            padding: 30px;
-            transition: all 0.4s ease;
+            border-radius: 25px;
+            padding: 35px;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             overflow: hidden;
             animation: fadeInUp 0.8s ease;
@@ -238,18 +552,40 @@
             height: 100%;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s ease;
+            z-index: -1;
+        }
+        
+        .test-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.4), transparent);
+            transition: all 0.6s ease;
             z-index: -1;
         }
         
         .test-card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-15px) scale(1.03) rotateX(5deg);
             border-color: var(--secondary);
-            box-shadow: 0 30px 80px rgba(6, 182, 212, 0.4);
+            box-shadow: 
+                0 40px 100px rgba(6, 182, 212, 0.5),
+                0 0 80px rgba(124, 58, 237, 0.3),
+                inset 0 0 60px rgba(6, 182, 212, 0.1);
         }
         
         .test-card:hover::before {
-            opacity: 0.1;
+            opacity: 0.15;
+        }
+        
+        .test-card:hover::after {
+            width: 500px;
+            height: 500px;
         }
         
         .test-card.positive {
@@ -268,81 +604,108 @@
         }
         
         .test-id {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--secondary);
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .test-status {
             background: rgba(255, 255, 255, 0.1);
-            padding: 5px 15px;
-            border-radius: 20px;
+            padding: 8px 18px;
+            border-radius: 25px;
             font-size: 0.85rem;
             color: var(--light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
         }
         
         .test-title {
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.15rem;
+            font-weight: 700;
             color: var(--light);
             margin-bottom: 20px;
-            line-height: 1.4;
+            line-height: 1.5;
         }
         
         .test-section {
-            margin: 15px 0;
+            margin: 18px 0;
         }
         
         .test-section h4 {
             color: var(--accent);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            font-weight: 600;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            font-weight: 700;
         }
         
         .test-section p, .test-section ol {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.8;
-            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.9;
+            font-size: 0.98rem;
         }
         
         .test-section ol {
-            padding-left: 20px;
+            padding-left: 25px;
         }
         
         .test-section li {
-            margin: 8px 0;
+            margin: 10px 0;
             padding-left: 10px;
         }
         
-        /* Parameterization Section */
+        /* Parameterization Section - Enhanced */
         .param-section {
             background: rgba(15, 15, 35, 0.9);
-            backdrop-filter: blur(20px);
-            border: 2px solid var(--primary);
-            border-radius: 30px;
-            padding: 50px;
-            margin: 60px 0;
+            backdrop-filter: blur(25px);
+            border: 3px solid var(--primary);
+            border-radius: 35px;
+            padding: 60px;
+            margin: 80px 0;
             animation: fadeInUp 1s ease;
-            box-shadow: 0 30px 80px rgba(124, 58, 237, 0.3);
+            box-shadow: 
+                0 40px 100px rgba(124, 58, 237, 0.4),
+                inset 0 0 100px rgba(124, 58, 237, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .param-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.1), transparent);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .param-section h3 {
-            font-size: 2rem;
+            font-size: 2.3rem;
             color: var(--primary);
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             text-align: center;
+            text-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
         }
         
-        /* Tables */
+        /* Tables - Enhanced */
         .table-container {
             overflow-x: auto;
-            margin: 30px 0;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
+            margin: 35px 0;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px;
+            box-shadow: inset 0 0 50px rgba(6, 182, 212, 0.1);
         }
         
         table {
@@ -354,74 +717,96 @@
         
         thead {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 10px 40px rgba(124, 58, 237, 0.4);
         }
         
         th {
-            padding: 18px;
+            padding: 20px;
             text-align: left;
             color: var(--light);
-            font-weight: 700;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            border-bottom: 3px solid var(--accent);
+            font-weight: 800;
+            font-size: 1.05rem;
+            letter-spacing: 1.5px;
+            border-bottom: 4px solid var(--accent);
+            text-transform: uppercase;
         }
         
         td {
-            padding: 18px;
+            padding: 20px;
             color: rgba(255, 255, 255, 0.9);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
+            font-size: 0.98rem;
+            transition: all 0.4s ease;
         }
         
         tbody tr {
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        tbody tr::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(124, 58, 237, 0.2), transparent);
+            transition: width 0.4s ease;
+        }
+        
+        tbody tr:hover::before {
+            width: 100%;
         }
         
         tbody tr:hover {
-            background: rgba(124, 58, 237, 0.1);
-            transform: scale(1.01);
+            background: rgba(124, 58, 237, 0.15);
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
         }
         
         tbody tr:hover td {
             color: var(--light);
         }
         
-        /* Decision Table */
+        /* Decision Table - Enhanced */
         .decision-table {
-            margin: 60px 0;
+            margin: 80px 0;
             animation: fadeInUp 1.2s ease;
         }
         
         .decision-table h3 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             background: linear-gradient(135deg, var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 0 50px rgba(6, 182, 212, 0.3);
         }
         
         .decision-table h4 {
             text-align: center;
             color: var(--light);
-            margin-bottom: 40px;
+            margin-bottom: 45px;
             font-weight: 400;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
         
-        /* Checkmarks and Crosses */
+        /* Checkmarks and Crosses - Enhanced */
         .check {
             color: var(--secondary);
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            text-shadow: 0 0 10px var(--secondary);
         }
         
         .cross {
             color: var(--accent);
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            text-shadow: 0 0 10px var(--accent);
         }
         
         /* Animations */
@@ -433,7 +818,7 @@
         @keyframes fadeInUp {
             from { 
                 opacity: 0;
-                transform: translateY(50px);
+                transform: translateY(80px);
             }
             to {
                 opacity: 1;
@@ -444,7 +829,7 @@
         @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-50px);
+                transform: translateY(-80px);
             }
             to {
                 opacity: 1;
@@ -452,53 +837,168 @@
             }
         }
         
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header h1 { font-size: 2rem; }
-            .test-grid { grid-template-columns: 1fr; }
-            .param-section { padding: 30px 20px; }
-            .section-header h2 { font-size: 1.8rem; }
-        }
-        
         /* Scroll Animation */
         .scroll-animate {
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.6s ease;
+            transform: translateY(80px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
         .scroll-animate.active {
             opacity: 1;
             transform: translateY(0);
         }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .test-grid { grid-template-columns: 1fr; }
+            .param-section { padding: 30px 20px; }
+            .section-header h2 { font-size: 2rem; padding: 20px 30px; }
+        }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="animated-bg">
+    <!-- MEGA Animated Background -->
+    <div class="mega-bg">
+        <!-- Grid Pattern -->
+        <div class="grid-pattern"></div>
+        
         <!-- Gradient Orbs -->
         <div class="orb orb1"></div>
         <div class="orb orb2"></div>
         <div class="orb orb3"></div>
         
-        <!-- Floating Test Icons -->
-        <div class="test-icon">✓</div>
-        <div class="test-icon">✗</div>
-        <div class="test-icon">⚡</div>
-        <div class="test-icon">🔍</div>
-        <div class="test-icon">✓</div>
-        <div class="test-icon">⚙️</div>
+        <!-- Geometric Shapes -->
+        <div class="geometric-shape shape1">
+            <div class="hexagon"></div>
+        </div>
+        <div class="geometric-shape shape2">
+            <div class="triangle"></div>
+        </div>
+        <div class="geometric-shape shape3">
+            <div class="circle"></div>
+        </div>
+        <div class="geometric-shape shape4">
+            <div class="square"></div>
+        </div>
+        <div class="geometric-shape shape5">
+            <div class="pentagon"></div>
+        </div>
+        <div class="geometric-shape shape6">
+            <div class="hexagon" style="background: var(--secondary);"></div>
+        </div>
+        <div class="geometric-shape shape7">
+            <div class="triangle" style="border-bottom-color: var(--accent);"></div>
+        </div>
+        <div class="geometric-shape shape8">
+            <div class="circle" style="background: var(--primary);"></div>
+        </div>
+        
+        <!-- Big Testing Icons -->
+        <div class="test-icon-big icon1">✓</div>
+        <div class="test-icon-big icon2">✗</div>
+        <div class="test-icon-big icon3">⚡</div>
+        <div class="test-icon-big icon4">🔍</div>
+        
+        <!-- People Working Container -->
+        <div class="people-container">
+            <!-- Person 1 - Developer -->
+            <svg class="person person1" width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="40" r="25" fill="url(#grad1)"/>
+                <rect x="75" y="70" width="50" height="60" rx="10" fill="url(#grad1)"/>
+                <rect x="50" y="80" width="30" height="50" rx="10" fill="url(#grad1)"/>
+                <rect x="120" y="80" width="30" height="50" rx="10" fill="url(#grad1)"/>
+                <rect x="75" y="130" width="20" height="60" rx="10" fill="url(#grad1)"/>
+                <rect x="105" y="130" width="20" height="60" rx="10" fill="url(#grad1)"/>
+                <!-- Laptop -->
+                <rect x="60" y="110" width="80" height="50" rx="5" fill="#06B6D4" opacity="0.6"/>
+                <rect x="65" y="115" width="70" height="35" fill="#0a0a1a"/>
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#7C3AED;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#06B6D4;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            
+            <!-- Person 2 - Tester -->
+            <svg class="person person2" width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="40" r="25" fill="url(#grad2)"/>
+                <rect x="75" y="70" width="50" height="60" rx="10" fill="url(#grad2)"/>
+                <rect x="50" y="80" width="30" height="50" rx="10" fill="url(#grad2)"/>
+                <rect x="120" y="80" width="30" height="50" rx="10" fill="url(#grad2)"/>
+                <rect x="75" y="130" width="20" height="60" rx="10" fill="url(#grad2)"/>
+                <rect x="105" y="130" width="20" height="60" rx="10" fill="url(#grad2)"/>
+                <!-- Testing Screen -->
+                <rect x="65" y="100" width="70" height="55" rx="5" fill="#EC4899" opacity="0.6"/>
+                <text x="100" y="130" font-size="30" fill="#fff" text-anchor="middle">✓</text>
+                <defs>
+                    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#EC4899;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            
+            <!-- Person 3 - Analyst -->
+            <svg class="person person3" width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="40" r="25" fill="url(#grad3)"/>
+                <rect x="75" y="70" width="50" height="60" rx="10" fill="url(#grad3)"/>
+                <rect x="50" y="80" width="30" height="50" rx="10" fill="url(#grad3)"/>
+                <rect x="120" y="80" width="30" height="50" rx="10" fill="url(#grad3)"/>
+                <rect x="75" y="130" width="20" height="60" rx="10" fill="url(#grad3)"/>
+                <rect x="105" y="130" width="20" height="60" rx="10" fill="url(#grad3)"/>
+                <!-- Document -->
+                <rect x="70" y="105" width="60" height="50" rx="5" fill="#7C3AED" opacity="0.6"/>
+                <line x1="80" y1="120" x2="120" y2="120" stroke="#fff" stroke-width="2"/>
+                <line x1="80" y1="130" x2="120" y2="130" stroke="#fff" stroke-width="2"/>
+                <line x1="80" y1="140" x2="110" y2="140" stroke="#fff" stroke-width="2"/>
+                <defs>
+                    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#06B6D4;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#EC4899;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            
+            <!-- Person 4 - QA Engineer -->
+            <svg class="person person4" width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="40" r="25" fill="url(#grad4)"/>
+                <rect x="75" y="70" width="50" height="60" rx="10" fill="url(#grad4)"/>
+                <rect x="50" y="80" width="30" height="50" rx="10" fill="url(#grad4)"/>
+                <rect x="120" y="80" width="30" height="50" rx="10" fill="url(#grad4)"/>
+                <rect x="75" y="130" width="20" height="60" rx="10" fill="url(#grad4)"/>
+                <rect x="105" y="130" width="20" height="60" rx="10" fill="url(#grad4)"/>
+                <!-- Bug Icon -->
+                <circle cx="100" cy="125" r="20" fill="#EC4899" opacity="0.6"/>
+                <text x="100" y="135" font-size="25" text-anchor="middle">🐛</text>
+                <defs>
+                    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#EC4899;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#06B6D4;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        
+        <!-- Floating UI Elements -->
+        <div class="floating-ui ui1">
+            <div>✓ TEST PASSED</div>
+            <div style="margin-top: 5px; opacity: 0.6;">TC_001</div>
+        </div>
+        <div class="floating-ui ui2">
+            <div>⚡ Running Tests...</div>
+            <div style="margin-top: 5px; opacity: 0.6;">Progress: 75%</div>
+        </div>
+        <div class="floating-ui ui3">
+            <div>🔍 Analyzing...</div>
+            <div style="margin-top: 5px; opacity: 0.6;">Coverage: 98%</div>
+        </div>
+        <div class="floating-ui ui4">
+            <div>✗ Bug Found</div>
+            <div style="margin-top: 5px; opacity: 0.6;">Priority: High</div>
+        </div>
     </div>
     
     <!-- Main Content -->
@@ -1265,12 +1765,12 @@
                 </table>
             </div>
             
-            <div style="margin-top: 50px; padding: 30px; background: rgba(124, 58, 237, 0.1); border-radius: 15px; border-left: 5px solid var(--primary);">
-                <h4 style="color: var(--primary); margin-bottom: 20px; font-size: 1.3rem;">Пример использования таблицы:</h4>
-                <p style="margin: 10px 0; color: rgba(255,255,255,0.9); line-height: 1.8;">
+            <div style="margin-top: 50px; padding: 40px; background: rgba(124, 58, 237, 0.15); border-radius: 20px; border-left: 6px solid var(--primary); box-shadow: 0 20px 60px rgba(124, 58, 237, 0.3);">
+                <h4 style="color: var(--primary); margin-bottom: 25px; font-size: 1.4rem;">Пример использования таблицы:</h4>
+                <p style="margin: 15px 0; color: rgba(255,255,255,0.95); line-height: 2; font-size: 1.05rem;">
                     <strong style="color: var(--secondary);">Тестовый текст в NotePad:</strong> "Testing test TEST tested protest"
                 </p>
-                <ul style="margin-top: 20px; color: rgba(255,255,255,0.85); line-height: 2;">
+                <ul style="margin-top: 25px; color: rgba(255,255,255,0.9); line-height: 2.2; font-size: 1rem;">
                     <li><strong style="color: var(--accent);">Правило №1:</strong> Искать "test", обе опции выключены → Найдено в словах: Testing, test, TEST, tested, protest</li>
                     <li><strong style="color: var(--accent);">Правило №4:</strong> Искать "test", только "Целое слово" → Найдено только отдельное слово "test" и "TEST"</li>
                     <li><strong style="color: var(--accent);">Правило №6:</strong> Искать "test", обе опции включены → Найдено только отдельное слово "test" с точным регистром</li>
@@ -1281,23 +1781,46 @@
     </div>
     
     <script>
-        // Generate matrix lines
-        const animatedBg = document.querySelector('.animated-bg');
-        const matrixTexts = ['TC_001', 'assert', 'test()', '✓', '✗', 'PASS', 'FAIL', 'verify', 'check', 'validate'];
-        
-        for (let i = 0; i < 15; i++) {
-            const line = document.createElement('div');
-            line.className = 'matrix-line';
-            line.textContent = matrixTexts[Math.floor(Math.random() * matrixTexts.length)];
-            line.style.left = Math.random() * 100 + '%';
-            line.style.animationDelay = Math.random() * 5 + 's';
-            animatedBg.appendChild(line);
+        // Generate Particles
+        const megaBg = document.querySelector('.mega-bg');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = Math.random() * 4 + 2 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            megaBg.appendChild(particle);
         }
         
-        // Scroll Animation
+        // Generate Code Rain
+        const codeTexts = ['TC_', 'assert', 'test()', '✓', '✗', 'PASS', 'FAIL', 'verify', 'check', 'validate', 'if', 'else', '{', '}', '==', '!='];
+        for (let i = 0; i < 30; i++) {
+            const code = document.createElement('div');
+            code.className = 'code-rain';
+            code.textContent = codeTexts[Math.floor(Math.random() * codeTexts.length)];
+            code.style.left = Math.random() * 100 + '%';
+            code.style.animationDelay = Math.random() * 12 + 's';
+            megaBg.appendChild(code);
+        }
+        
+        // Generate Network Lines
+        for (let i = 0; i < 10; i++) {
+            const line = document.createElement('div');
+            line.className = 'network-line';
+            line.style.top = Math.random() * 100 + '%';
+            line.style.left = Math.random() * 50 + '%';
+            line.style.width = Math.random() * 300 + 100 + 'px';
+            line.style.animationDelay = Math.random() * 8 + 's';
+            line.style.transform = 'rotate(' + (Math.random() * 180 - 90) + 'deg)';
+            megaBg.appendChild(line);
+        }
+        
+        // Scroll Animation Observer
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '0px 0px -80px 0px'
         };
         
         const observer = new IntersectionObserver((entries) => {
@@ -1312,12 +1835,36 @@
             observer.observe(el);
         });
         
-        // Add hover sound effect simulation
+        // Enhanced Card Interactions
         document.querySelectorAll('.test-card').forEach(card => {
             card.addEventListener('mouseenter', function() {
-                this.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                this.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            });
+            
+            card.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                this.style.transform = `translateY(-15px) scale(1.03) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1) rotateX(0) rotateY(0)';
             });
         });
+        
+        // Dynamic Title Animation
+        const title = document.querySelector('.header h1');
+        setInterval(() => {
+            title.style.backgroundPosition = Math.random() * 100 + '% ' + Math.random() * 100 + '%';
+        }, 3000);
     </script>
 </body>
 </html>
