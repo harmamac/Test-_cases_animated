@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест-кейсы для функции поиска в NotePad</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #7C3AED;
+            --secondary: #06B6D4;
+            --accent: #EC4899;
+            --dark: #0f0f23;
+            --light: #ffffff;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        /* Floating Test Icons */
+        .test-icon {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+            color: var(--secondary);
+        }
+        
+        .test-icon:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; font-size: 30px; }
+        .test-icon:nth-child(2) { left: 20%; top: 60%; animation-delay: 2s; font-size: 25px; color: var(--primary); }
+        .test-icon:nth-child(3) { left: 70%; top: 30%; animation-delay: 4s; font-size: 35px; color: var(--accent); }
+        .test-icon:nth-child(4) { left: 80%; top: 70%; animation-delay: 6s; font-size: 28px; }
+        .test-icon:nth-child(5) { left: 40%; top: 10%; animation-delay: 8s; font-size: 32px; color: var(--primary); }
+        .test-icon:nth-child(6) { left: 60%; top: 80%; animation-delay: 10s; font-size: 26px; color: var(--accent); }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.1; }
+            50% { transform: translateY(-100px) rotate(180deg); opacity: 0.3; }
+        }
+        
+        /* Gradient Orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: pulse 8s infinite ease-in-out;
+        }
+        
+        .orb1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+        
+        .orb2 {
+            width: 500px;
+            height: 500px;
+            background: var(--secondary);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 2s;
+        }
+        
+        .orb3 {
+            width: 350px;
+            height: 350px;
+            background: var(--accent);
+            top: 50%;
+            left: 50%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.2) translate(50px, 50px); }
+        }
+        
+        /* Code Matrix Effect */
+        .matrix-line {
+            position: absolute;
+            color: var(--secondary);
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            opacity: 0;
+            animation: matrixFall 10s linear infinite;
+        }
+        
+        @keyframes matrixFall {
+            0% { opacity: 0; transform: translateY(-100%); }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { opacity: 0; transform: translateY(100vh); }
+        }
+        
+        /* Content Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 30px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 0 40px rgba(124, 58, 237, 0.3);
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 10px var(--primary)); }
+            50% { filter: drop-shadow(0 0 30px var(--accent)); }
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin: 80px 0 50px 0;
+            position: relative;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--light);
+            display: inline-block;
+            padding: 20px 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(124, 58, 237, 0.4);
+            animation: slideIn 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-header h2::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+        
+        .section-header .emoji {
+            font-size: 3rem;
+            margin-right: 15px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Test Cases Grid */
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        /* Test Card */
+        .test-card {
+            background: rgba(15, 15, 35, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        .test-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+        
+        .test-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--secondary);
+            box-shadow: 0 30px 80px rgba(6, 182, 212, 0.4);
+        }
+        
+        .test-card:hover::before {
+            opacity: 0.1;
+        }
+        
+        .test-card.positive {
+            border-left: 5px solid var(--secondary);
+        }
+        
+        .test-card.negative {
+            border-left: 5px solid var(--accent);
+        }
+        
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .test-id {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        .test-status {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--light);
+        }
+        
+        .test-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--light);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        
+        .test-section {
+            margin: 15px 0;
+        }
+        
+        .test-section h4 {
+            color: var(--accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .test-section p, .test-section ol {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        
+        .test-section ol {
+            padding-left: 20px;
+        }
+        
+        .test-section li {
+            margin: 8px 0;
+            padding-left: 10px;
+        }
+        
+        /* Parameterization Section */
+        .param-section {
+            background: rgba(15, 15, 35, 0.9);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--primary);
+            border-radius: 30px;
+            padding: 50px;
+            margin: 60px 0;
+            animation: fadeInUp 1s ease;
+            box-shadow: 0 30px 80px rgba(124, 58, 237, 0.3);
+        }
+        
+        .param-section h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            animation: fadeIn 1s ease;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        th {
+            padding: 18px;
+            text-align: left;
+            color: var(--light);
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            border-bottom: 3px solid var(--accent);
+        }
+        
+        td {
+            padding: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        tbody tr {
+            transition: all 0.3s ease;
+        }
+        
+        tbody tr:hover {
+            background: rgba(124, 58, 237, 0.1);
+            transform: scale(1.01);
+        }
+        
+        tbody tr:hover td {
+            color: var(--light);
+        }
+        
+        /* Decision Table */
+        .decision-table {
+            margin: 60px 0;
+            animation: fadeInUp 1.2s ease;
+        }
+        
+        .decision-table h3 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .decision-table h4 {
+            text-align: center;
+            color: var(--light);
+            margin-bottom: 40px;
+            font-weight: 400;
+            font-size: 1.2rem;
+        }
+        
+        /* Checkmarks and Crosses */
+        .check {
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .cross {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .test-grid { grid-template-columns: 1fr; }
+            .param-section { padding: 30px 20px; }
+            .section-header h2 { font-size: 1.8rem; }
+        }
+        
+        /* Scroll Animation */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+        
+        .scroll-animate.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <!-- Gradient Orbs -->
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+        
+        <!-- Floating Test Icons -->
+        <div class="test-icon">✓</div>
+        <div class="test-icon">✗</div>
+        <div class="test-icon">⚡</div>
+        <div class="test-icon">🔍</div>
+        <div class="test-icon">✓</div>
+        <div class="test-icon">⚙️</div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Тест-кейсы для функции поиска в NotePad</h1>
+            <p>Методы верификации и тестирования программных систем</p>
+        </div>
+        
+        <!-- Positive Test Cases -->
+        <div class="section-header scroll-animate">
+            <h2><span class="emoji">✅</span> POSITIVE TEST CASES</h2>
+            <p style="margin-top: 20px; color: var(--secondary); font-size: 1.1rem;">Положительные тесты</p>
+        </div>
+        
+        <div class="test-grid">
+            <!-- TC_001 -->
+            <div class="test-card positive scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_001</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Простой поиск существующего текста</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с текстом "Hello world, this is a test document"</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>В поле "Что:" ввести "test"</li>
+                        <li>Нажать кнопку "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Слово "test" найдено и выделено в тексте</p>
+                </div>
+            </div>
+            
+            <!-- TC_002 -->
+            <div class="test-card positive scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_002</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Поиск нескольких вхождений</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с текстом "Test data for test cases. This test is important"</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>В поле "Что:" ввести "test"</li>
+                        <li>Нажать "Найти далее" три раза подряд</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Последовательно выделяются все три вхождения слова "test"</p>
+                </div>
+            </div>
+            
+            <!-- TC_003 -->
+            <div class="test-card positive scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_003</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Поиск с учетом регистра</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с текстом "Test test TEST TeSt"</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>В поле "Что:" ввести "Test"</li>
+                        <li>Установить галочку "С учетом регистра"</li>
+                        <li>Нажать "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Найдено только "Test" с заглавной T</p>
+                </div>
+            </div>
+            
+            <!-- TC_004 -->
+            <div class="test-card positive scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_004</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Поиск целого слова</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с текстом "testing test tested protest"</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>В поле "Что:" ввести "test"</li>
+                        <li>Установить галочку "Только слово целиком"</li>
+                        <li>Нажать "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Найдено только отдельное слово "test"</p>
+                </div>
+            </div>
+            
+            <!-- TC_005 -->
+            <div class="test-card positive scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_005</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Комбинация двух опций поиска</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с текстом "Testing Test test tested TEST"</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>В поле "Что:" ввести "Test"</li>
+                        <li>Установить обе галочки: "Только слово целиком" и "С учетом регистра"</li>
+                        <li>Нажать "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Найдено только слово "Test" (второе в тексте)</p>
+                </div>
+            </div>
+            
+            <!-- TC_006 -->
+            <div class="test-card positive scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_006</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Поиск специальных символов</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с текстом "email@test.com, price: $100"</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>В поле "Что:" ввести "@test.com"</li>
+                        <li>Нажать "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Найдена строка "@test.com"</p>
+                </div>
+            </div>
+            
+            <!-- TC_007 -->
+            <div class="test-card positive scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_007</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Поиск числовых значений</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с текстом "Order 12345, code: 12345"</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>В поле "Что:" ввести "12345"</li>
+                        <li>Нажать "Найти далее" два раза</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Поочередно найдены оба вхождения "12345"</p>
+                </div>
+            </div>
+            
+            <!-- TC_008 -->
+            <div class="test-card positive scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_008</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Отмена поиска</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с любым текстом</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>В поле "Что:" ввести "test"</li>
+                        <li>Нажать кнопку "Отмена"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Диалог закрыт, фокус возвращен в документ</p>
+                </div>
+            </div>
+            
+            <!-- TC_009 -->
+            <div class="test-card positive scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_009</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Поиск фразы с пробелами</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с текстом "Hello world, this is a test"</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>В поле "Что:" ввести "Hello world"</li>
+                        <li>Нажать "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Найдена фраза "Hello world"</p>
+                </div>
+            </div>
+            
+            <!-- TC_010 -->
+            <div class="test-card positive scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_010</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Циклический поиск</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с текстом "First match. Second match. Third match."</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>В поле "Что:" ввести "match"</li>
+                        <li>Нажать "Найти далее" четыре раза</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>После третьего совпадения поиск начинается сначала</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Negative Test Cases -->
+        <div class="section-header scroll-animate">
+            <h2><span class="emoji">❌</span> NEGATIVE TEST CASES</h2>
+            <p style="margin-top: 20px; color: var(--accent); font-size: 1.1rem;">Отрицательные тесты</p>
+        </div>
+        
+        <div class="test-grid">
+            <!-- TC_011 -->
+            <div class="test-card negative scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_011</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Поиск пустой строки</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с любым текстом</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>Оставить поле "Что:" пустым</li>
+                        <li>Попытаться нажать "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Кнопка "Найти далее" неактивна</p>
+                </div>
+            </div>
+            
+            <!-- TC_012 -->
+            <div class="test-card negative scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_012</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Поиск несуществующего текста</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с текстом "Simple text document"</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>В поле "Что:" ввести "xyz123"</li>
+                        <li>Нажать "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Сообщение "Не удается найти 'xyz123'"</p>
+                </div>
+            </div>
+            
+            <!-- TC_013 -->
+            <div class="test-card negative scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_013</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Неправильный регистр с опцией</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с текстом "Hello World"</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>В поле "Что:" ввести "hello"</li>
+                        <li>Установить галочку "С учетом регистра"</li>
+                        <li>Нажать "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Сообщение "Не удается найти 'hello'"</p>
+                </div>
+            </div>
+            
+            <!-- TC_014 -->
+            <div class="test-card negative scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_014</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Часть слова с опцией целого слова</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с текстом "testing tested"</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>В поле "Что:" ввести "test"</li>
+                        <li>Установить галочку "Только слово целиком"</li>
+                        <li>Нажать "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Сообщение "Не удается найти 'test'"</p>
+                </div>
+            </div>
+            
+            <!-- TC_015 -->
+            <div class="test-card negative scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_015</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Поиск в пустом документе</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт без текста (пустой)</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>В поле "Что:" ввести "test"</li>
+                        <li>Нажать "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Сообщение "Не удается найти 'test'"</p>
+                </div>
+            </div>
+            
+            <!-- TC_016 -->
+            <div class="test-card negative scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_016</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Поиск только пробелов</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с обычным текстом</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>Ввести несколько пробелов " "</li>
+                        <li>Нажать "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Не найдено совпадений</p>
+                </div>
+            </div>
+            
+            <!-- TC_017 -->
+            <div class="test-card negative scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_017</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Превышение максимальной длины</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с любым текстом</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>Попытаться ввести строку >1000 символов</li>
+                        <li>Попытаться нажать "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Ограничение на ввод или ошибка</p>
+                </div>
+            </div>
+            
+            <!-- TC_018 -->
+            <div class="test-card negative scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_018</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Некорректные Unicode символы</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с английским текстом</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>Ввести эмодзи или иероглифы</li>
+                        <li>Нажать "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Не найдено совпадений</p>
+                </div>
+            </div>
+            
+            <!-- TC_019 -->
+            <div class="test-card negative scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_019</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Поиск с конца документа</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad с текстом "Start middle end", курсор в конце</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Поместить курсор в конец документа</li>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>В поле "Что:" ввести "Start"</li>
+                        <li>Нажать "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Поиск начинается сначала и находит "Start"</p>
+                </div>
+            </div>
+            
+            <!-- TC_020 -->
+            <div class="test-card negative scroll-animate">
+                <div class="test-header">
+                    <div class="test-id">TC_020</div>
+                    <div class="test-status">Not executed</div>
+                </div>
+                <div class="test-title">Управляющие символы</div>
+                <div class="test-section">
+                    <h4>ПРЕДУСЛОВИЯ:</h4>
+                    <p>NotePad открыт с обычным текстом</p>
+                </div>
+                <div class="test-section">
+                    <h4>ШАГИ:</h4>
+                    <ol>
+                        <li>Открыть диалог поиска (Ctrl+F)</li>
+                        <li>Попытаться ввести "\n" или "\t"</li>
+                        <li>Нажать "Найти далее"</li>
+                    </ol>
+                </div>
+                <div class="test-section">
+                    <h4>ОЖИДАЕМЫЙ РЕЗУЛЬТАТ:</h4>
+                    <p>Символы интерпретируются как текст, не как управляющие</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Parameterization Section -->
+        <div class="param-section scroll-animate">
+            <div class="section-header">
+                <h2><span class="emoji">⚙️</span> ПАРАМЕТРИЗАЦИЯ ТЕСТОВ</h2>
+            </div>
+            
+            <h3>TC_PAR_001: Поиск существующего текста с различными типами данных</h3>
+            <div class="test-section">
+                <h4>ПРЕДУСЛОВИЯ:</h4>
+                <p>NotePad открыт с текстом: "Hello World 123 test@email.com Цена: $50 Символы: #@!"</p>
+            </div>
+            <div class="test-section">
+                <h4>ШАГИ:</h4>
+                <ol>
+                    <li>Открыть диалог поиска (Ctrl+F)</li>
+                    <li>В поле "Что:" ввести значение из таблицы параметров</li>
+                    <li>Нажать кнопку "Найти далее"</li>
+                </ol>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Входные данные (что искать)</th>
+                            <th>Ожидаемый результат</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>"Hello"</td>
+                            <td>Текст "Hello" найден и выделен</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>"123"</td>
+                            <td>Числовое значение "123" найдено</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>"test@email.com"</td>
+                            <td>Email адрес найден полностью</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>"$50"</td>
+                            <td>Символ валюты и число найдены</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>"#@!"</td>
+                            <td>Специальные символы найдены</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>"world"</td>
+                            <td>Текст найден (без учета регистра)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3 style="margin-top: 60px;">TC_PAR_002: Поиск с различными комбинациями опций</h3>
+            <div class="test-section">
+                <h4>ПРЕДУСЛОВИЯ:</h4>
+                <p>NotePad открыт с текстом: "Testing test TEST tested protest"</p>
+            </div>
+            <div class="test-section">
+                <h4>ШАГИ:</h4>
+                <ol>
+                    <li>Открыть диалог поиска (Ctrl+F)</li>
+                    <li>В поле "Что:" ввести "test"</li>
+                    <li>Установить опции согласно таблице параметров</li>
+                    <li>Нажать "Найти далее"</li>
+                </ol>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Только слово целиком</th>
+                            <th>С учетом регистра</th>
+                            <th>Ожидаемый результат</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>☐</td>
+                            <td>☐</td>
+                            <td>Найдены все вхождения: "Testing", "test", "TEST", "tested", "protest"</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>☑</td>
+                            <td>☐</td>
+                            <td>Найдено только отдельное слово "test" и "TEST"</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>☐</td>
+                            <td>☑</td>
+                            <td>Найдено только "test" (с маленькими буквами)</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>☑</td>
+                            <td>☑</td>
+                            <td>Найдено только отдельное слово "test" с точным регистром</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Decision Table -->
+        <div class="decision-table scroll-animate">
+            <div class="section-header">
+                <h2><span class="emoji">📊</span> ТАБЛИЦА ПРИНЯТИЯ РЕШЕНИЙ</h2>
+            </div>
+            <h4>Условия поиска и ожидаемые результаты</h4>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>С учетом регистра</th>
+                            <th>Только слово целиком</th>
+                            <th>Текст существует</th>
+                            <th>Регистр совпадает</th>
+                            <th>Целое слово</th>
+                            <th style="background: linear-gradient(135deg, var(--accent), var(--primary));">РЕЗУЛЬТАТ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1</strong></td>
+                            <td>☐ OFF</td>
+                            <td>☐ OFF</td>
+                            <td><span class="check">✓ Да</span></td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><strong><span class="check">✓ НАЙДЕНО</span></strong> (любое вхождение)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2</strong></td>
+                            <td>☑ ON</td>
+                            <td>☐ OFF</td>
+                            <td><span class="check">✓ Да</span></td>
+                            <td><span class="check">✓ Да</span></td>
+                            <td>-</td>
+                            <td><strong><span class="check">✓ НАЙДЕНО</span></strong> (с правильным регистром)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3</strong></td>
+                            <td>☑ ON</td>
+                            <td>☐ OFF</td>
+                            <td><span class="check">✓ Да</span></td>
+                            <td><span class="cross">✗ Нет</span></td>
+                            <td>-</td>
+                            <td><strong><span class="cross">✗ НЕ НАЙДЕНО</span></strong> (неправильный регистр)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4</strong></td>
+                            <td>☐ OFF</td>
+                            <td>☑ ON</td>
+                            <td><span class="check">✓ Да</span></td>
+                            <td>-</td>
+                            <td><span class="check">✓ Да</span></td>
+                            <td><strong><span class="check">✓ НАЙДЕНО</span></strong> (целое слово)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5</strong></td>
+                            <td>☐ OFF</td>
+                            <td>☑ ON</td>
+                            <td><span class="check">✓ Да</span></td>
+                            <td>-</td>
+                            <td><span class="cross">✗ Нет</span></td>
+                            <td><strong><span class="cross">✗ НЕ НАЙДЕНО</span></strong> (часть слова)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6</strong></td>
+                            <td>☑ ON</td>
+                            <td>☑ ON</td>
+                            <td><span class="check">✓ Да</span></td>
+                            <td><span class="check">✓ Да</span></td>
+                            <td><span class="check">✓ Да</span></td>
+                            <td><strong><span class="check">✓ НАЙДЕНО</span></strong> (все условия выполнены)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>7</strong></td>
+                            <td>☑ ON</td>
+                            <td>☑ ON</td>
+                            <td><span class="check">✓ Да</span></td>
+                            <td><span class="cross">✗ Нет</span></td>
+                            <td><span class="check">✓ Да</span></td>
+                            <td><strong><span class="cross">✗ НЕ НАЙДЕНО</span></strong> (регистр не совпадает)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8</strong></td>
+                            <td>☑ ON</td>
+                            <td>☑ ON</td>
+                            <td><span class="check">✓ Да</span></td>
+                            <td><span class="check">✓ Да</span></td>
+                            <td><span class="cross">✗ Нет</span></td>
+                            <td><strong><span class="cross">✗ НЕ НАЙДЕНО</span></strong> (не целое слово)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>9</strong></td>
+                            <td>☐ OFF</td>
+                            <td>☐ OFF</td>
+                            <td><span class="cross">✗ Нет</span></td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><strong><span class="cross">✗ НЕ НАЙДЕНО</span></strong> (текст отсутствует)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>10</strong></td>
+                            <td>☑ ON</td>
+                            <td>☑ ON</td>
+                            <td><span class="cross">✗ Нет</span></td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><strong><span class="cross">✗ НЕ НАЙДЕНО</span></strong> (текст отсутствует)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="margin-top: 50px; padding: 30px; background: rgba(124, 58, 237, 0.1); border-radius: 15px; border-left: 5px solid var(--primary);">
+                <h4 style="color: var(--primary); margin-bottom: 20px; font-size: 1.3rem;">Пример использования таблицы:</h4>
+                <p style="margin: 10px 0; color: rgba(255,255,255,0.9); line-height: 1.8;">
+                    <strong style="color: var(--secondary);">Тестовый текст в NotePad:</strong> "Testing test TEST tested protest"
+                </p>
+                <ul style="margin-top: 20px; color: rgba(255,255,255,0.85); line-height: 2;">
+                    <li><strong style="color: var(--accent);">Правило №1:</strong> Искать "test", обе опции выключены → Найдено в словах: Testing, test, TEST, tested, protest</li>
+                    <li><strong style="color: var(--accent);">Правило №4:</strong> Искать "test", только "Целое слово" → Найдено только отдельное слово "test" и "TEST"</li>
+                    <li><strong style="color: var(--accent);">Правило №6:</strong> Искать "test", обе опции включены → Найдено только отдельное слово "test" с точным регистром</li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+    <script>
+        // Generate matrix lines
+        const animatedBg = document.querySelector('.animated-bg');
+        const matrixTexts = ['TC_001', 'assert', 'test()', '✓', '✗', 'PASS', 'FAIL', 'verify', 'check', 'validate'];
+        
+        for (let i = 0; i < 15; i++) {
+            const line = document.createElement('div');
+            line.className = 'matrix-line';
+            line.textContent = matrixTexts[Math.floor(Math.random() * matrixTexts.length)];
+            line.style.left = Math.random() * 100 + '%';
+            line.style.animationDelay = Math.random() * 5 + 's';
+            animatedBg.appendChild(line);
+        }
+        
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Add hover sound effect simulation
+        document.querySelectorAll('.test-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            });
+        });
+    </script>
+</body>
+</html>
